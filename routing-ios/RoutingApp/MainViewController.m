@@ -44,11 +44,21 @@
     [stops addObject:hereBurnaby];
     [stops addObject:langley];
 
-    // Create an NMARoutingMode, then set it to find the fastest car route without going on Highway.
+    // Create an NMARoutingMode, then set it to find the fastest truck route - see https://developer.here.com/documentation/ios-premium/dev_guide/topics/routing-truck.html
     NMARoutingMode* routingMode =
         [[NMARoutingMode alloc] initWithRoutingType:NMARoutingTypeFastest
-                                      transportMode:NMATransportModeCar
-                                     routingOptions:NMARoutingOptionAvoidHighway];
+                                      transportMode:NMATransportModeTruck
+                                     routingOptions:1];
+    
+    # set truck routing options - see https://developer.here.com/documentation/ios-premium/api_reference_jazzy/Classes/NMARoutingMode.html
+    routingMode.vehicleLength = 18.25f;
+    routingMode.vehicleHeight = 3.6f;
+    routingMode.vehicleWidth = 2.55f;
+    routingMode.trailersCount = 1;
+    routingMode.hazardousGoods = 0;
+    routingMode.truckRestrictionsMode = 0;
+    routingMode.avoidDifficultTurns = 1;
+    routingMode.truckType = 0;
 
     // Initialize the NMACoreRouter
     if ( !self.router )
